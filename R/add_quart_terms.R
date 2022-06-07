@@ -15,7 +15,7 @@
 
 add_quart_terms = function(X)
 {
-  x.new <- matrix(0,nrow=nrow(X),ncol=ncol(X))
+  x.new <- matrix(0,nrow=nrow(X),ncol=ncol(X)*3)
   nonlin.count <- 0
   
   for(i in 1:ncol(X))

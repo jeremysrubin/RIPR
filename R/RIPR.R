@@ -15,14 +15,14 @@
 #' is glmnet object for the ridge regression fit 
 #' 
 #' @examples 
-#' RIP(X,Y)
+#' RIPR(X,Y)
 #' 
 #' @export 
 #' 
-RIP = function(X,Y)
+RIPR = function(X,Y)
 {
   X_RIP <- build_RIPR_mat(X)
-  ridge_fit <- cv.glmnet(x=as.matrix(X_RIP),y=as.vector(Y),
+  ridge_fit <- cv.glmnet(x=data.matrix(X_RIP),y=as.vector(Y),
                          alpha=0,type.measure="mse")
   
   return(list(X_RIP,ridge_fit)) 

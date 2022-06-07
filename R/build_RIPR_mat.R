@@ -32,12 +32,12 @@ build_RIPR_mat = function(X)
   X.con <- X[,which(col.types==0)]
   
   cat.col.names <- colnames(X.cat)
-  cont.col.names <- colnames(X.cont)
+  cont.col.names <- colnames(X.con)
   
   # Generate matrices of quadratic, quartile, and cubic spline functional forms
   # for continuous predictors
   x.quad <- add_quad_terms(X.con)
-  x.quart <- add_quartile_terms(X.con)
+  x.quart <- add_quart_terms(X.con)
   x.cubic <- add_cubic_terms(X.con)
   
   # Matrix with all functional forms for continuous predictors only
@@ -73,12 +73,14 @@ build_RIPR_mat = function(X)
     quart.col.names[i] <- cur.col.name.quart
   }
   
-  spline_col_names <- quart_col_names
-  spline_col_names <- stringr::str_replace_all(spline_col_names, "quart" ,"spline")
+  spline_col_names <- quart.col.names
+  spline_col_names <- stringr::str_replace_all(spline_col_names, "quart2" ,"spline1")
+  spline_col_names <- stringr::str_replace_all(spline_col_names, "quart3" ,"spline2")
+  spline_col_names <- stringr::str_replace_all(spline_col_names, "quart4" ,"spline3")
   
   all.cont.col.names[(2*ncol(X.con)+1):length(all.cont.col.names)] <- 
-    c(quart.col.names,spline.col.names)
+    c(quart.col.names,spline_col_names)
   
-  colnames(X.final) < c(all.cont.col.names,cat.col.names)
+  colnames(X.final) <- c(all.cont.col.names,cat.col.names)
   return(X.final)
 }
